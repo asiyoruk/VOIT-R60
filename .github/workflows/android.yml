@@ -1,6 +1,7 @@
 name: Android CI
 on:
-  push: { branches: [main] }
+  push:
+    branches: [main]
   workflow_dispatch:
 jobs:
   build:
@@ -8,10 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
+        with:
+          distribution: temurin
+          java-version: 17
       - uses: android-actions/setup-android@v3
       - uses: gradle/actions/setup-gradle@v4
-        with: { gradle-version: "8.9" }
+        with:
+          gradle-version: "8.9"
       - run: gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
-        with: { name: R60-debug-apk, path: app/build/outputs/apk/debug/*.apk }
+        with:
+          name: R60-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
